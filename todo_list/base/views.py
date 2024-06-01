@@ -3,5 +3,5 @@ from django.http import HttpResponse
 
 # Create your views here.
 
-def taskList(request):
+def lista_de_tarefas(request):
     return HttpResponse("Opa!")
