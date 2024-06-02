@@ -1,0 +1,14 @@
+<h1>Lista de Tarefas</h1>
+
+<table>
+    <tr>
+        <th>Tarefas</th>
+    </tr>
+    {% for tarefa in tarefas %}
+    <tr>
+        <td>{{ tarefa.titulo }}</td>
+    </tr> 
+    {% empty %}
+    <h3>Sem tarefas na lista</h3>
+    {% endfor %}
+</table>
