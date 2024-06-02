@@ -5,11 +5,13 @@
     <tr>
         <th>Tarefas</th>
         <th></th>
+        <th></th>
     </tr>
     {% for tarefa in tarefas %}
     <tr>
         <td>{{ tarefa.titulo }}</td>
         <td><a href="{% url 'tarefa' tarefa.id %}">Visualizar</a></td>
+        <td><a href="{% url 'editar-tarefa' tarefa.id %}">Editar</a></td>
     </tr> 
     {% empty %}
     <h3>Sem tarefas na lista</h3>

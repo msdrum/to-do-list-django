@@ -1,1 +1,5 @@
 <h1>Tarefa: {{tarefa}} </h1>
+
+<h3>{{tarefa.descricao}}</h3>
+
+<a href="{% url 'editar-tarefa' tarefa.id %}"><input type="submit" value="Editar"></a>
