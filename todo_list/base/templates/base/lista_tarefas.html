@@ -1,12 +1,15 @@
 <h1>Lista de Tarefas</h1>
+<a href="{% url 'criar-tarefa' %}">Criar tarefa</a>
 
 <table>
     <tr>
         <th>Tarefas</th>
+        <th></th>
     </tr>
     {% for tarefa in tarefas %}
     <tr>
         <td>{{ tarefa.titulo }}</td>
+        <td><a href="{% url 'tarefa' tarefa.id %}">Visualizar</a></td>
     </tr> 
     {% empty %}
     <h3>Sem tarefas na lista</h3>
