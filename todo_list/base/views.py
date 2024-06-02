@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
+from django.views.generic.list import ListView
+from . models import Tarefa
 # Create your views here.
 
-def lista_de_tarefas(request):
-    return HttpResponse("Opa!")
+class Lista_de_tarefas(ListView):
+    model = Tarefa
