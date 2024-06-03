@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout  # Importa o logout, para que a função possa receber esse tipo de request
 
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
 
 from . models import Tarefa
 # Create your views here.
@@ -19,6 +20,14 @@ class Pagina_login(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('tarefas')
+       
+class Pagina_logout(LogoutView):
+    template_name = 'base/logout.html'
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse_lazy('login') # Usar o reverse_lazy para redirecionar o usuário direto para a página de login, mesmo sem ter um template de logout.html
+
 
 
 class Lista_tarefas(LoginRequiredMixin, ListView):
@@ -49,9 +58,4 @@ class Deletar_tarefa(LoginRequiredMixin, DeleteView):
     model = Tarefa
     context_object_name = 'tarefa'
     success_url = reverse_lazy('tarefas')
-
-def user_logout(request):
-    logout(request)
-
-    return render(request, 'base/logout.html')
 
