@@ -1,5 +1,5 @@
 from django.urls import path
-from . views import Lista_tarefas, Detalhe_tarefa, Criar_tarefa, Editar_tarefa
+from . views import Lista_tarefas, Detalhe_tarefa, Criar_tarefa, Editar_tarefa, Deletar_tarefa
 
 
 urlpatterns = [
@@ -23,5 +23,11 @@ urlpatterns = [
         'editar-tarefa/<int:pk>/',
         Editar_tarefa.as_view(),
         name='editar-tarefa'
+    ),
+
+       path(
+        'deletar-tarefa/<int:pk>/',
+        Deletar_tarefa.as_view(),
+        name='deletar-tarefa'
     ),
 ]

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from . models import Tarefa
 # Create your views here.
@@ -25,5 +25,10 @@ class Criar_tarefa(CreateView):
 class Editar_tarefa(UpdateView):
     model = Tarefa
     fields = '__all__'
+    success_url = reverse_lazy('tarefas')
+
+class Deletar_tarefa(DeleteView):
+    model = Tarefa
+    context_object_name = 'tarefa'
     success_url = reverse_lazy('tarefas')
 
