@@ -1,8 +1,13 @@
 from django.urls import path
-from . views import Lista_tarefas, Detalhe_tarefa, Criar_tarefa, Editar_tarefa, Deletar_tarefa
+from . views import Lista_tarefas, Detalhe_tarefa, Criar_tarefa, Editar_tarefa, Deletar_tarefa, Pagina_login
 
 
 urlpatterns = [
+     path('login/', 
+         Pagina_login.as_view(),
+         name='login'
+    ),
+
     path('', 
          Lista_tarefas.as_view(),
          name='tarefas'
