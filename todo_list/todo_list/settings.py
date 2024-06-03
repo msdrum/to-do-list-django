@@ -128,3 +128,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'login'
 
+CSRF_TRUSTED_ORIGINS = ['https://localhost:8000']
