@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout  # Importa o logout, para que a função possa receber esse tipo de request
 
 from django.contrib.auth.views import LoginView
 
@@ -17,29 +20,38 @@ class Pagina_login(LoginView):
     def get_success_url(self):
         return reverse_lazy('tarefas')
 
-class Lista_tarefas(ListView):
+
+class Lista_tarefas(LoginRequiredMixin, ListView):
     model = Tarefa
     context_object_name = 'tarefas'  # Mudando o nome dado pelo django de "object_list" para "tarefas"
     template_name = 'base/lista_tarefas.html' # Comando para mudar o sufixo criado pelo django do template. Por padrão o django cria "nome_que_vc_deu_list.html"
 
 
-class Detalhe_tarefa(DetailView):
+class Detalhe_tarefa(LoginRequiredMixin, DetailView):
     model = Tarefa
     context_object_name = 'tarefa' # Mudando o nome do endpoint para "tarefa"
     template_name = 'base/detalhe_tarefa.html' # Comando para mudar o sufixo criado pelo django do template. Por padrão o django cria "nome_que_vc_deu_detail.html"
 
-class Criar_tarefa(CreateView):
+
+class Criar_tarefa(LoginRequiredMixin, CreateView):
     model = Tarefa
     fields = '__all__'  # recebendo todos os campos do model para ser utilizado no form.
     success_url = reverse_lazy('tarefas') # O método reverse_lazy, redirecionará o usuário para a página indicada no parâmetro, após a criação do conteúdo no form.
 
-class Editar_tarefa(UpdateView):
+
+class Editar_tarefa(LoginRequiredMixin, UpdateView):
     model = Tarefa
     fields = '__all__'
     success_url = reverse_lazy('tarefas')
 
-class Deletar_tarefa(DeleteView):
+
+class Deletar_tarefa(LoginRequiredMixin, DeleteView):
     model = Tarefa
     context_object_name = 'tarefa'
     success_url = reverse_lazy('tarefas')
+
+def user_logout(request):
+    logout(request)
+
+    return render(request, 'base/logout.html')
 

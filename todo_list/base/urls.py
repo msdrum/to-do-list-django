@@ -1,11 +1,17 @@
 from django.urls import path
-from . views import Lista_tarefas, Detalhe_tarefa, Criar_tarefa, Editar_tarefa, Deletar_tarefa, Pagina_login
+from . views import Lista_tarefas, Detalhe_tarefa, Criar_tarefa, Editar_tarefa, Deletar_tarefa, Pagina_login, user_logout
 
 
 urlpatterns = [
      path('login/', 
          Pagina_login.as_view(),
          name='login'
+    ),
+
+        path(
+        "logout/",
+        user_logout,
+        name='logout',   
     ),
 
     path('', 
