@@ -1,3 +1,5 @@
+from django.forms import BaseModelForm
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -35,10 +37,10 @@ class Lista_tarefas(LoginRequiredMixin, ListView):
     context_object_name = 'tarefas'  # Mudando o nome dado pelo django de "object_list" para "tarefas"
     template_name = 'base/lista_tarefas.html' # Comando para mudar o sufixo criado pelo django do template. Por padrão o django cria "nome_que_vc_deu_list.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):  # Esta função restringe o acesso à lista de tarefas pela lista do usuário logado, impedindo que ele acesse a lista de um outro usuário.
         context = super().get_context_data(**kwargs)
-        context['tarefas'] = context['tarefas'].filter(user=self.request.user)
-        context['tarefas'] = context['tarefas'].filter(complete=False).count()
+        context['tarefas'] = context['tarefas'].filter(usuario=self.request.user) # atenção no argumento de filter! usuario é o campo do models.py e user é comando do django!
+        # context['tarefas'] = context['tarefas'].filter(completo=False).count()
         return context
 
 
@@ -50,13 +52,17 @@ class Detalhe_tarefa(LoginRequiredMixin, DetailView):
 
 class Criar_tarefa(LoginRequiredMixin, CreateView):
     model = Tarefa
-    fields = '__all__'  # recebendo todos os campos do model para ser utilizado no form.
+    fields = ['titulo', 'descricao', 'completo']  # recebendo todos os campos do model para ser utilizado no form.
     success_url = reverse_lazy('tarefas') # O método reverse_lazy, redirecionará o usuário para a página indicada no parâmetro, após a criação do conteúdo no form.
+
+    def form_valid(self, form): # Função criada para as tarefas que forem criadas serem associadas ao usuário logado!
+        form.instance.usuario = self.request.user  # Atenção no form.instance...o valor que deve ser passado é o campo usuario do models-->> form.instance.usuario
+        return super(Criar_tarefa, self).form_valid(form)
 
 
 class Editar_tarefa(LoginRequiredMixin, UpdateView):
     model = Tarefa
-    fields = '__all__'
+    fields = ['titulo', 'descricao', 'completo'] 
     success_url = reverse_lazy('tarefas')
 
 
