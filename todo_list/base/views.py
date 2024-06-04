@@ -34,7 +34,7 @@ class Pagina_logout(LogoutView):
 
 class Lista_tarefas(LoginRequiredMixin, ListView):
     model = Tarefa
-    context_object_name = 'tarefas'  # Mudando o nome dado pelo django de "object_list" para "tarefas"
+    context_object_name = 'tarefas'  # Mudando o nome dado pelo django de "object_list" para "tarefas".
     template_name = 'base/lista_tarefas.html' # Comando para mudar o sufixo criado pelo django do template. Por padrão o django cria "nome_que_vc_deu_list.html"
 
     def get_context_data(self, **kwargs):  # Esta função restringe o acesso à lista de tarefas pela lista do usuário logado, impedindo que ele acesse a lista de um outro usuário.
