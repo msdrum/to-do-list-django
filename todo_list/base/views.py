@@ -35,6 +35,12 @@ class Lista_tarefas(LoginRequiredMixin, ListView):
     context_object_name = 'tarefas'  # Mudando o nome dado pelo django de "object_list" para "tarefas"
     template_name = 'base/lista_tarefas.html' # Comando para mudar o sufixo criado pelo django do template. Por padrão o django cria "nome_que_vc_deu_list.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tarefas'] = context['tarefas'].filter(user=self.request.user)
+        context['tarefas'] = context['tarefas'].filter(complete=False).count()
+        return context
+
 
 class Detalhe_tarefa(LoginRequiredMixin, DetailView):
     model = Tarefa
