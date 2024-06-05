@@ -65,7 +65,7 @@ class Lista_tarefas(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):  # Esta função restringe o acesso à lista de tarefas pela lista do usuário logado, impedindo que ele acesse a lista de um outro usuário.
         context = super().get_context_data(**kwargs)
         context['tarefas'] = context['tarefas'].filter(usuario=self.request.user) # atenção no argumento de filter! usuario é o campo do models.py e user é comando do django!
-        # context['tarefas'] = context['tarefas'].filter(completo=False).count()
+        context['count'] = context['tarefas'].filter(completo=False).count()
 
         search_input = self.request.GET.get('search-area') or '' # search-area é o nome colocado no html, como se fosse um "getById() no JS".
         if search_input:

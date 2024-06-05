@@ -1,3 +1,6 @@
+{% extends "base/main.html" %}
+
+{% block content %}
 <h3>Formulário da tarefa</h3>
 
 <a href="{% url 'tarefas' %}">Voltar</a>
@@ -7,3 +10,4 @@
     {{form.as_p}}  
     <input type="submit" value="Salvar">
 </form>
+{% endblock content %}

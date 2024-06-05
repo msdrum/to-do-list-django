@@ -1,19 +1,25 @@
+{% extends "base/main.html" %}
 
+{% block content %}
 
-{% if request.user.is_authenticated %}
+<div class="header-bar">
+    <div>
+        <h1>Olá, {{request.user|title}}</h1>
+        <h3 style="margin: 0">Você tem <i>{{count}}</i> tarefa{{ count|pluralize:"s" }} incompleta{{ count|pluralize:"s" }}.</h3>
+    </div>
 
-    <p>{{request.user}}</p>
-    
-     <form method="post"  action="{% url 'logout' %}">
+    {% if request.user.is_authenticated %}
+    <form method="post"  action="{% url 'logout' %}">
         {% csrf_token %}
-        <button>
+        <button class="sair-tasklist">
             Sair
-        </button>
+        </button>    
     </form> 
-    
-{% endif %}
+    {% endif %}
 
-<hr>
+</div>
+
+{% comment %} <hr>
 <h1>Lista de Tarefas</h1>
 
 <a href="{% url 'criar-tarefa' %}">Criar tarefa</a>
@@ -21,9 +27,33 @@
 <form method="GET">
     <input type="text" name="search-area" value="{{search_input}}">
     <input type="submit" value="Procurar">
-</form>
+</form> {% endcomment %}
 
-<table>
+<div class="task-items-wrapper">
+    {% for tarefa in tarefas %}
+        <div class="task-wrapper">
+            {% if tarefa.completo %}
+                <div class="task-title">
+                    <div class="task-complete-icon"></div>
+                    <i><s><a href="{% url 'editar-tarefa' tarefa.id %}">{{ tarefa }}</a></s></i>
+                    <a class="delete-link" href="{% url 'deletar-tarefa' tarefa.id %}">&#215;</a>
+                </div>
+            {% else %}
+            <div class="task-title">
+                <div class="task-incomplete-icon"></div>
+                <a href="{% url 'editar-tarefa' tarefa.id %}">{{ tarefa }}</a>
+            </div>
+            <a class="delete-link" href="{% url 'deletar-tarefa' tarefa.id %}">&#215;</a>
+            {% endif %}
+            
+        </div>
+
+    {% empty %}
+    <h3>Sem tarefas na lista</h3>
+    {% endfor %}
+</div>
+
+{% comment %} <table>
     <tr>
         <th>Tarefas</th>
         <th></th>
@@ -39,4 +69,5 @@
     {% empty %}
     <h3>Sem tarefas na lista</h3>
     {% endfor %}
-</table>
+</table> {% endcomment %}
+{% endblock content %}
