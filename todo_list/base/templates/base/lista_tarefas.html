@@ -18,6 +18,11 @@
 
 <a href="{% url 'criar-tarefa' %}">Criar tarefa</a>
 
+<form method="GET">
+    <input type="text" name="search-area" value="{{search_input}}">
+    <input type="submit" value="Procurar">
+</form>
+
 <table>
     <tr>
         <th>Tarefas</th>
