@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,6 +11,8 @@ from django.contrib.auth import logout  # Importa o logout, para que a função 
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 from . models import Tarefa
 # Create your views here.
@@ -22,6 +24,28 @@ class Pagina_login(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('tarefas')
+        
+    
+    
+class Pagina_registro(FormView):
+    template_name = 'base/registro.html'
+    form_class = UserCreationForm
+    redirect_authenticated_user = True
+    success_url = reverse_lazy('tarefas')
+
+    def form_valid(self, form):  # Função para validar o registro du usuário e direcioná-lo para a página de tarefas (pelo reverse_lazy() acima).
+        usuario = form.save()
+        if usuario is not None:
+            login(self.request, usuario)
+        return super(Pagina_registro, self).form_valid(form)
+    
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('tasks')
+        return super(Pagina_registro, self).get(*args, **kwargs)
+        
+    
+
        
 class Pagina_logout(LogoutView):
     template_name = 'base/logout.html'
