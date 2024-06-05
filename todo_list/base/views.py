@@ -13,6 +13,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.db import models
 
 from . models import Tarefa
 # Create your views here.
@@ -31,7 +32,7 @@ class Pagina_registro(FormView):
     template_name = 'base/registro.html'
     form_class = UserCreationForm
     redirect_authenticated_user = True
-    success_url = reverse_lazy('tarefas')
+    success_url = reverse_lazy('tarefas')    
 
     def form_valid(self, form):  # Função para validar o registro du usuário e direcioná-lo para a página de tarefas (pelo reverse_lazy() acima).
         usuario = form.save()
