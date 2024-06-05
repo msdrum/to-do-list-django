@@ -19,15 +19,13 @@
 
 </div>
 
-{% comment %} <hr>
-<h1>Lista de Tarefas</h1>
-
-<a href="{% url 'criar-tarefa' %}">Criar tarefa</a>
-
-<form method="GET">
-    <input type="text" name="search-area" value="{{search_input}}">
-    <input type="submit" value="Procurar">
-</form> {% endcomment %}
+<div class="search-add-wrapper">
+    <form method="GET" style="margin-top: 20px; display:flex;">
+        <input type="text" name="search-area" value="{{search_input}}">
+        <input type="submit" value="Procurar">
+    </form> 
+    <a id="add-link" href="{% url 'criar-tarefa' %}">&#x2b;</a> 
+</div>
 
 <div class="task-items-wrapper">
     {% for tarefa in tarefas %}
@@ -36,8 +34,8 @@
                 <div class="task-title">
                     <div class="task-complete-icon"></div>
                     <i><s><a href="{% url 'editar-tarefa' tarefa.id %}">{{ tarefa }}</a></s></i>
-                    <a class="delete-link" href="{% url 'deletar-tarefa' tarefa.id %}">&#215;</a>
                 </div>
+                <a class="delete-link" href="{% url 'deletar-tarefa' tarefa.id %}">&#215;</a>
             {% else %}
             <div class="task-title">
                 <div class="task-incomplete-icon"></div>
