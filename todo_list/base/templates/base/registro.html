@@ -9,8 +9,16 @@
 <div class="card-body">
     <form method="POST">
         {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+          <p>
+            {{ field.errors }}
+            {{ field.label }}
+            {{ field }}
+          </p> 
+        {% endfor %}
 
-        {{ form.as_p }}
+        {% comment %} {{ form.as_p }} {% endcomment %}
     
         <input style="margin-top: 20px" class="button" type="submit"  value="Registro">
     </form>
