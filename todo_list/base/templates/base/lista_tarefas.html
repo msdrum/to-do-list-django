@@ -21,7 +21,7 @@
 
 <div id="search-add-wrapper">
     <form method="GET" style="margin-top: 20px; display:flex;">
-        <input type="text" name="search-area" value="{{search_input}}">
+        <input style="margin-right: 10px" type="text" name="search-area" value="{{search_input}}">
         <input class="button"  type="submit" value="Procurar">
     </form> 
     <a id="add-link" href="{% url 'criar-tarefa' %}">&#x2b;</a> 
@@ -51,21 +51,4 @@
     {% endfor %}
 </div>
 
-{% comment %} <table>
-    <tr>
-        <th>Tarefas</th>
-        <th></th>
-        <th></th>
-    </tr>
-    {% for tarefa in tarefas %}
-    <tr>
-        <td>{{ tarefa.titulo }}</td>
-        <td><a href="{% url 'tarefa' tarefa.id %}">Visualizar</a></td>
-        <td><a href="{% url 'editar-tarefa' tarefa.id %}">Editar</a></td>
-        <td><a href="{% url 'deletar-tarefa' tarefa.id %}">Deletar</a></td>
-    </tr> 
-    {% empty %}
-    <h3>Sem tarefas na lista</h3>
-    {% endfor %}
-</table> {% endcomment %}
 {% endblock content %}
