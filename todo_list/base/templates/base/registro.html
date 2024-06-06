@@ -1,15 +1,27 @@
 {% extends "base/main.html" %}
-
 {% block content %}
-<h1>Registro</h1>
+
+<div class="header-bar">
+    <h1>Registro</h1>
+</div>
 
 
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
+<div class="card-body">
+    <form method="POST">
+        {% csrf_token %}
+        <label >{{ form.username.label }}</label>
+        {{ form.username }}
 
-    <input type="submit"  value="Registro">
-</form>
+        <label >{{ form.password1.label }}</label>
+        {{ form.password1 }}
 
-<p>Já possui uma conta? Faça o <a href="{% url 'login' %}">Login</a></p>
+        <label >{{ form.password2.label }}</label>
+        {{ form.password2 }}
+        
+    
+        <input style="margin-top: 20px" class="button" type="submit"  value="Registro">
+    </form>
+    <p>Já possui uma conta? Faça o <a href="{% url 'login' %}">Login</a></p>
+</div>
+
 {% endblock content %}

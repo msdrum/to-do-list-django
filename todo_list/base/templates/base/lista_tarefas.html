@@ -19,10 +19,10 @@
 
 </div>
 
-<div class="search-add-wrapper">
+<div id="search-add-wrapper">
     <form method="GET" style="margin-top: 20px; display:flex;">
         <input type="text" name="search-area" value="{{search_input}}">
-        <input type="submit" value="Procurar">
+        <input class="button"  type="submit" value="Procurar">
     </form> 
     <a id="add-link" href="{% url 'criar-tarefa' %}">&#x2b;</a> 
 </div>

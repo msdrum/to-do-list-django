@@ -1,10 +1,16 @@
 {% extends "base/main.html" %}
-
 {% block content %}
-<form method="POST" action="">
-    {% csrf_token %}
-    <p>Você tem certeza que deseja deletar esta tarefa?  "{{tarefa}}"</p>
-    <input type="submit" value="SIM">
-</form>
-<a href="{% url 'tarefas' %}"><input type="submit" value="NÃO"></a>
+
+<div class="header-bar">
+    <a href="{% url 'tarefas' %}">&#8592; Voltar</a>
+</div>
+
+<div class="card-body">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <p>Você tem certeza que deseja deletar esta tarefa?  "{{tarefa}}"</p>
+        <input class="button" type="submit" value="SIM">
+    </form>
+</div>
+
 {% endblock content %}
